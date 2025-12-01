@@ -1,0 +1,512 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Премия РЗТ - Победители по месяцам</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0f0f1a;
+            color: #e0e0ff;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 2px solid #2a2a4a;
+            margin-bottom: 30px;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ff3366;
+            box-shadow: 0 0 20px rgba(255, 51, 102, 0.7);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 51, 102, 0.9);
+        }
+        
+        .title-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            color: #ff3366;
+            text-shadow: 0 0 10px rgba(255, 51, 102, 0.5);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #a0a0d0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .months-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+        
+        .month-btn {
+            background-color: #1a1a2e;
+            border: 1px solid #2a2a4a;
+            color: #c0c0e0;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            min-width: 140px;
+        }
+        
+        .month-btn:hover {
+            background-color: #2a2a4a;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .month-btn.active {
+            background-color: #ff3366;
+            color: white;
+            border-color: #ff3366;
+            box-shadow: 0 0 15px rgba(255, 51, 102, 0.5);
+        }
+        
+        .content-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .month-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #ffcc00;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333355;
+        }
+        
+        .winners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .category-card {
+            background-color: #1a1a2e;
+            border-radius: 12px;
+            padding: 25px;
+            border-left: 5px solid #ff3366;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .category-title {
+            font-size: 1.5rem;
+            color: #ffcc00;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #333355;
+        }
+        
+        .winner-name {
+            font-size: 1.4rem;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+        
+        .winner-details {
+            color: #a0a0d0;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+        
+        .note {
+            text-align: center;
+            color: #8888aa;
+            font-style: italic;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #2a2a4a;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .logo {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .months-container {
+                gap: 8px;
+            }
+            
+            .month-btn {
+                min-width: 120px;
+                padding: 10px 15px;
+                font-size: 1rem;
+            }
+            
+            .winners-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .month-btn {
+                min-width: 100px;
+                padding: 8px 10px;
+                font-size: 0.9rem;
+            }
+            
+            .logo {
+                width: 70px;
+                height: 70px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="https://images.genius.com/f21d9bc754489a3eac2f91f9bae06825.1000x1000x1.jpg" alt="Логотип премии РЗТ" class="logo">
+            </div>
+            <div class="title-container">
+                <h1>ПРЕМИЯ РЗТ</h1>
+                <p class="subtitle">Награды за достижения в музыке по месяцам. Выберите месяц, чтобы увидеть победителей в различных номинациях.</p>
+            </div>
+        </div>
+    </header>
+    
+    <div class="months-container">
+        <button class="month-btn active" data-month="jan-feb">Январь-Февраль</button>
+        <button class="month-btn" data-month="march">Март</button>
+        <button class="month-btn" data-month="april">Апрель</button>
+        <button class="month-btn" data-month="may">Май</button>
+        <button class="month-btn" data-month="july">Июль</button>
+        <button class="month-btn" data-month="august">Август</button>
+        <button class="month-btn" data-month="september">Сентябрь</button>
+        <button class="month-btn" data-month="october">Октябрь</button>
+    </div>
+    
+    <div class="content-container">
+        <h2 class="month-title" id="selected-month">Январь-Февраль</h2>
+        
+        <div class="winners-grid" id="winners-container">
+        </div>
+    </div>
+    
+    <p class="note">Данные о победителях премии РЗТ с января по октябрь.</p>
+
+    <script>
+        const winnersData = {
+            "jan-feb": {
+                monthName: "Январь-Февраль",
+                categories: [
+                    {
+                        title: "АРТИСТ МЕСЯЦА",
+                        winner: "MORGENSHTERN*",
+                        details: ""
+                    },
+                    {
+                        title: "АЛЬБОМ МЕСЯЦА",
+                        winner: "SZN",
+                        details: "OG Buda"
+                    },
+                    {
+                        title: "ХИТ МЕСЯЦА",
+                        winner: "ДОМ (Лондон, Прага, Ницца)",
+                        details: "MORGENSHTERN*"
+                    },
+                    {
+                        title: "КЛИП МЕСЯЦА",
+                        winner: "SQWOZ BAB TOKYO",
+                        details: "MAYD PRODUCTION"
+                    }
+                ]
+            },
+            "march": {
+                monthName: "Март",
+                categories: [
+                    {
+                        title: "АРТИСТ МЕСЯЦА",
+                        winner: "madk1d",
+                        details: ""
+                    },
+                    {
+                        title: "АЛЬБОМ МЕСЯЦА",
+                        winner: "Так пофиг",
+                        details: "madk1d"
+                    },
+                    {
+                        title: "ХИТ МЕСЯЦА",
+                        winner: "Информация не указана",
+                        details: ""
+                    },
+                    {
+                        title: "КЛИП МЕСЯЦА",
+                        winner: "0$",
+                        details: ""
+                    }
+                ]
+            },
+            "april": {
+                monthName: "Апрель",
+                categories: [
+                    {
+                        title: "АРТИСТ МЕСЯЦА",
+                        winner: "FRIENDLY THUG 52 NGG",
+                        details: ""
+                    },
+                    {
+                        title: "АЛЬБОМ МЕСЯЦА",
+                        winner: "ACCEPT ALL COOKIES",
+                        details: "Loqiemean"
+                    },
+                    {
+                        title: "ХИТ МЕСЯЦА",
+                        winner: "BO ДВОРЫ",
+                        details: "mzlff"
+                    },
+                    {
+                        title: "КЛИП МЕСЯЦА",
+                        winner: "масло черного тумана outro",
+                        details: "Igor Klepnev"
+                    }
+                ]
+            },
+            "may": {
+                monthName: "Май",
+                categories: [
+                    {
+                        title: "АРТИСТ МЕСЯЦА",
+                        winner: "ANNA ASTI",
+                        details: ""
+                    },
+                    {
+                        title: "АЛЬБОМ МЕСЯЦА",
+                        winner: "Перегарик",
+                        details: "Voskresenskii, Джон Гарик"
+                    },
+                    {
+                        title: "ХИТ МЕСЯЦА",
+                        winner: "Midix, Midix x Midix, Midix",
+                        details: ""
+                    },
+                    {
+                        title: "ПРОДЮСЕР МЕСЯЦА",
+                        winner: "Midix",
+                        details: ""
+                    }
+                ]
+            },
+            "july": {
+                monthName: "Июль",
+                categories: [
+                    {
+                        title: "АРТИСТ МЕСЯЦА",
+                        winner: "Мэйби Бэйби",
+                        details: ""
+                    },
+                    {
+                        title: "АЛЬБОМ МЕСЯЦА",
+                        winner: "SUPER PUPER NOVA",
+                        details: "5opka, MellSher"
+                    },
+                    {
+                        title: "ХИТ МЕСЯЦА",
+                        winner: "XXL",
+                        details: "5opka, MellSher"
+                    },
+                    {
+                        title: "ПРОДЮСЕР МЕСЯЦА",
+                        winner: "cloud (Даймс), gufani244",
+                        details: ""
+                    }
+                ]
+            },
+            "august": {
+                monthName: "Август",
+                categories: [
+                    {
+                        title: "АРТИСТ МЕСЯЦА",
+                        winner: "Егор Крид",
+                        details: ""
+                    },
+                    {
+                        title: "АЛЬБОМ МЕСЯЦА",
+                        winner: "-5LUV5",
+                        details: "SODA LUV"
+                    },
+                    {
+                        title: "ХИТ МЕСЯЦА",
+                        winner: "Бро",
+                        details: "Платина"
+                    },
+                    {
+                        title: "ПРОДЮСЕР МЕСЯЦА",
+                        winner: "shqcore",
+                        details: "Кауус"
+                    }
+                ]
+            },
+            "september": {
+                monthName: "Сентябрь",
+                categories: [
+                    {
+                        title: "АРТИСТ МЕСЯЦА",
+                        winner: "Kai Angel",
+                        details: ""
+                    },
+                    {
+                        title: "АЛЬБОМ МЕСЯЦА",
+                        winner: "damage",
+                        details: "Kai Angel"
+                    },
+                    {
+                        title: "ХИТ МЕСЯЦА",
+                        winner: "ОВЕРДОЗ (тёмный принц), JDFLAG",
+                        details: "flextrik, ld1nb84, JDFLAG"
+                    },
+                    {
+                        title: "ПРОДЮСЕР МЕСЯЦА",
+                        winner: "Информация не указана",
+                        details: ""
+                    }
+                ]
+            },
+            "october": {
+                monthName: "Октябрь",
+                categories: [
+                    {
+                        title: "АРТИСТ МЕСЯЦА",
+                        winner: "9mice",
+                        details: ""
+                    },
+                    {
+                        title: "АЛЬБОМ МЕСЯЦА",
+                        winner: "nightmortan deathmarried",
+                        details: ""
+                    },
+                    {
+                        title: "ХИТ МЕСЯЦА",
+                        winner: "Водка 3",
+                        details: "Джон Гарик"
+                    },
+                    {
+                        title: "ПРОДЮСЕР МЕСЯЦА",
+                        winner: "Золотухин Илья",
+                        details: ""
+                    }
+                ]
+            }
+        };
+
+        function showWinners(monthKey) {
+            const monthData = winnersData[monthKey];
+            const winnersContainer = document.getElementById('winners-container');
+            const monthTitle = document.getElementById('selected-month');
+            
+            monthTitle.textContent = monthData.monthName;
+            
+            winnersContainer.innerHTML = '';
+            
+            monthData.categories.forEach(category => {
+                const categoryCard = document.createElement('div');
+                categoryCard.className = 'category-card';
+                
+                const categoryTitle = document.createElement('h3');
+                categoryTitle.className = 'category-title';
+                categoryTitle.textContent = category.title;
+                
+                const winnerName = document.createElement('div');
+                winnerName.className = 'winner-name';
+                winnerName.textContent = category.winner;
+                
+                const winnerDetails = document.createElement('div');
+                winnerDetails.className = 'winner-details';
+                winnerDetails.textContent = category.details;
+                
+                categoryCard.appendChild(categoryTitle);
+                categoryCard.appendChild(winnerName);
+                categoryCard.appendChild(winnerDetails);
+                
+                winnersContainer.appendChild(categoryCard);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            showWinners('jan-feb');
+            
+            const monthButtons = document.querySelectorAll('.month-btn');
+            monthButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    monthButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    this.classList.add('active');
+                    
+                    const monthKey = this.getAttribute('data-month');
+                    showWinners(monthKey);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
